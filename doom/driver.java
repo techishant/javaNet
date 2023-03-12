@@ -6,7 +6,7 @@ public class driver {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         client myclient  = new client();
-        myclient.startConnection("127.0.0.1", 4444);
+        myclient.startConnection("192.168.0.200", 5500);
         while(true){
             String inp = in.nextLine();
             String response = myclient.sendMessage(inp);
