@@ -5,6 +5,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class host {
+    String[] msgs = new String[20];
     ServerSocket serverSocket = null;
     Socket clientSocket;
     PrintWriter out;
@@ -22,6 +23,18 @@ public class host {
      */
     public int getInput(Scanner in, PrintWriter out){
         String greeting = in.nextLine();
+        String msg = greeting;
+        System.out.println("Messages: ");
+        System.out.println("------------------");
+        for(int i = 0; i<msgs.length; i++){
+            if(msgs[i] == null){
+                msgs[i] = msg; 
+                break;
+            }else{
+                System.out.println(msgs[i]);
+            }
+        }
+        System.out.println(msg);
         if("hello server".equals(greeting)){
             out.println("hello client");
         }
@@ -38,11 +51,13 @@ public class host {
      * It Starts the server
      * @param port
      */
-    public void start(int port){
+    public void start(String ipAdd, int port){
         try {
             System.out.println("i was here");
             this.serverSocket = new ServerSocket();
-            this.serverSocket.bind(new InetSocketAddress("192.168.0.200",port));
+            this.serverSocket.bind(new InetSocketAddress(ipAdd,port));
+            printEssentials();
+
             this.clientSocket = this.serverSocket.accept();
             out = new PrintWriter(this.clientSocket.getOutputStream(), true);
             in = new Scanner(this.clientSocket.getInputStream(), "UTF-8");
@@ -51,7 +66,6 @@ public class host {
             e.printStackTrace();
         }
 
-        printEssentials();
         
         int st;
         while(true){
@@ -70,7 +84,6 @@ public class host {
         System.out.println("Channel: " + this.serverSocket.getChannel());
         System.out.println("Inet Address: " + this.serverSocket.getInetAddress());
         System.out.println("Local Socket Address: " + this.serverSocket.getLocalSocketAddress());
-        System.out.println("Server Started Successfully");
     }
 
     /**

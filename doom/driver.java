@@ -7,6 +7,7 @@ public class driver {
         Scanner in = new Scanner(System.in);
         client myclient  = new client();
         myclient.startConnection("192.168.0.200", 5500);
+
         while(true){
             String inp = in.nextLine();
             String response = myclient.sendMessage(inp);
@@ -15,7 +16,5 @@ public class driver {
                 break;
             }
         }
-        
-
     }
 }
